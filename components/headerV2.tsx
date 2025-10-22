@@ -10,7 +10,14 @@ import {
 	MobileNavToggle,
 	MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
-import { BookMarked, Brain, Globe, Home, MessageSquare } from "lucide-react";
+import {
+	BookMarked,
+	Brain,
+	Code,
+	Globe,
+	Home,
+	MessageSquare,
+} from "lucide-react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -45,6 +52,11 @@ const HeaderV2 = () => {
 			name: "Góp ý",
 			link: "/feedback",
 			icon: MessageSquare,
+		},
+		{
+			name: "Công nghệ",
+			link: "/tech",
+			icon: Code,
 		},
 	];
 
