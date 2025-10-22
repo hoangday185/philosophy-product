@@ -128,7 +128,7 @@ export const Tabs = ({
 		<>
 			<div
 				className={cn(
-					"flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+					"flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full mb-4 sm:mb-6",
 					containerClassName
 				)}
 			>
@@ -140,7 +140,10 @@ export const Tabs = ({
 						}}
 						onMouseEnter={() => setHovering(true)}
 						onMouseLeave={() => setHovering(false)}
-						className={cn("relative px-4 py-2 rounded-full", tabClassName)}
+						className={cn(
+							"relative px-3 sm:px-4 py-2 rounded-full text-sm sm:text-base",
+							tabClassName
+						)}
 						style={{
 							transformStyle: "preserve-3d",
 						}}
@@ -163,10 +166,10 @@ export const Tabs = ({
 				))}
 			</div>
 
-			{/* Grid layout cho 2 phần content */}
-			<div className="grid grid-cols-2 gap-8 mt-8 w-full">
+			{/* Layout cho 2 phần content */}
+			<div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 mt-6 sm:mt-8 w-full">
 				{/* Phần 1: FadeInDiv - Content của tabs */}
-				<div className="h-full w-full">
+				<div className="w-full lg:w-1/2 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
 					<FadeInDiv
 						tabs={tabs}
 						active={active}
@@ -184,7 +187,7 @@ export const Tabs = ({
 
 				{/* Phần 2: Secondary Content - Component được truyền vào */}
 				{secondaryContent && (
-					<div className="h-full w-full">
+					<div className="w-full lg:w-1/2 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
 						{typeof secondaryContent === "function"
 							? secondaryContent(active, changeTabByValue)
 							: secondaryContent}
@@ -223,7 +226,7 @@ export const FadeInDiv = ({
 	};
 	return (
 		<div
-			className="relative w-full h-full"
+			className="relative w-full h-full min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]"
 			data-tabs-container="true"
 			style={{ position: "relative" }}
 		>
@@ -249,9 +252,9 @@ export const FadeInDiv = ({
 
 			{/* Nút điều khiển đọc nội dung bên trong FadeInDiv */}
 			{enableSpeech && handleReadContent && (
-				<div className="absolute bottom-4 right-4 z-10 flex items-center gap-2">
+				<div className="absolute bottom-2 sm:bottom-4 right-2 sm:right-4 z-10 flex items-center gap-2">
 					{error && (
-						<span className="text-xs text-red-500 max-w-xs truncate bg-white dark:bg-zinc-900 px-2 py-1 rounded">
+						<span className="text-xs text-red-500 max-w-xs truncate bg-white dark:bg-zinc-900 px-2 py-1 rounded hidden sm:block">
 							{error}
 						</span>
 					)}
@@ -260,10 +263,10 @@ export const FadeInDiv = ({
 						onClick={handleReadContent}
 						disabled={isLoading}
 						className={cn(
-							"flex items-center gap-2 px-4 py-2 rounded-full transition-all",
+							"flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-full transition-all",
 							"bg-blue-500 hover:bg-blue-600 text-white",
 							"disabled:opacity-50 disabled:cursor-not-allowed",
-							"shadow-md hover:shadow-lg"
+							"shadow-md hover:shadow-lg text-xs sm:text-sm"
 						)}
 						title={
 							isLoading
@@ -276,15 +279,15 @@ export const FadeInDiv = ({
 						}
 					>
 						{isLoading ? (
-							<Loader2 className="h-4 w-4 animate-spin" />
+							<Loader2 className="h-3 w-3 sm:h-4 sm:w-4 animate-spin" />
 						) : isReading && !isPaused ? (
-							<Pause className="h-4 w-4" />
+							<Pause className="h-3 w-3 sm:h-4 sm:w-4" />
 						) : isPaused ? (
-							<Play className="h-4 w-4" />
+							<Play className="h-3 w-3 sm:h-4 sm:w-4" />
 						) : (
-							<Volume2 className="h-4 w-4" />
+							<Volume2 className="h-3 w-3 sm:h-4 sm:w-4" />
 						)}
-						<span className="text-sm font-medium">
+						<span className="font-medium hidden sm:inline">
 							{isLoading
 								? "Đang xử lý..."
 								: isReading && !isPaused
