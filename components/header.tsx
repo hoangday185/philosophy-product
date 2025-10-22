@@ -9,6 +9,7 @@ import {
 	Globe,
 	Sun,
 	Moon,
+	Code,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -67,6 +68,16 @@ export function Header() {
 							>
 								<MessageSquare className="w-4 h-4" />
 								Góp ý
+							</Button>
+						</Link>
+
+						<Link href="/tech">
+							<Button
+								variant={"link"}
+								className="hover:no-underline p-2 hover:rounded-lg hover:bg-accent"
+							>
+								<Code className="w-4 h-4" />
+								Tech Stack
 							</Button>
 						</Link>
 						{/* </CHANGE> */}
