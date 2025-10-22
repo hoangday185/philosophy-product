@@ -1,0 +1,81 @@
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Góp ý mới từ website</title>
+		<style>
+			body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding:
+			20px; background-color: #f8f9fa; } .container { background-color: #ffffff;
+			border-radius: 12px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); overflow:
+			hidden; } .header { background: linear-gradient(135deg, #007bff 0%,
+			#0056b3 100%); color: white; padding: 30px; text-align: center; } .header
+			h1 { margin: 0; font-size: 28px; font-weight: 600; } .content { padding:
+			30px; } .info-section { background-color: #f8f9fa; padding: 20px;
+			border-radius: 8px; margin: 20px 0; border-left: 4px solid #007bff; }
+			.info-section h3 { color: #007bff; margin-top: 0; margin-bottom: 15px;
+			font-size: 18px; } .info-item { margin-bottom: 10px; display: flex;
+			align-items: center; } .info-label { font-weight: 600; color: #495057;
+			min-width: 120px; } .info-value { color: #333; } .type-badge { display:
+			inline-block; padding: 4px 12px; border-radius: 20px; font-size: 12px;
+			font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+			.type-bug { background-color: #dc3545; color: white; } .type-feature {
+			background-color: #28a745; color: white; } .type-content {
+			background-color: #ffc107; color: #212529; } .type-other {
+			background-color: #6c757d; color: white; } .message-section {
+			background-color: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+			padding: 20px; margin: 20px 0; } .message-section h3 { color: #333;
+			margin-top: 0; margin-bottom: 15px; font-size: 18px; } .subject {
+			font-size: 16px; font-weight: 500; color: #007bff; margin-bottom: 20px; }
+			.message-content { background-color: #f8f9fa; padding: 20px;
+			border-radius: 6px; white-space: pre-wrap; line-height: 1.8; font-size:
+			14px; border-left: 3px solid #007bff; } .footer { background-color:
+			#e9ecef; padding: 20px; text-align: center; font-size: 12px; color:
+			#6c757d; } .footer p { margin: 5px 0; } .divider { height: 1px;
+			background: linear-gradient(to right, transparent, #dee2e6, transparent);
+			margin: 30px 0; } @media (max-width: 600px) { body { padding: 10px; }
+			.header, .content { padding: 20px; } .info-item { flex-direction: column;
+			align-items: flex-start; } .info-label { min-width: auto; margin-bottom:
+			5px; } }
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="header">
+				<h1>📧 Góp ý mới từ website</h1>
+			</div>
+
+			<div class="content">
+				<div class="info-section">
+					<h3>👤 Thông tin người gửi</h3>
+					<div class="info-item">
+						<span class="info-label">Tên:</span>
+						<span class="info-value">{{name}}</span>
+					</div>
+					<div class="info-item">
+						<span class="info-label">Email:</span>
+						<span class="info-value">{{email}}</span>
+					</div>
+					<div class="info-item">
+						<span class="info-label">Loại góp ý:</span>
+						<span class="type-badge type-{{type}}">{{typeLabel}}</span>
+					</div>
+				</div>
+
+				<div class="divider"></div>
+
+				<div class="message-section">
+					<h3>📝 Nội dung góp ý</h3>
+					<div class="subject">{{subject}}</div>
+					<div class="message-content">{{message}}</div>
+				</div>
+			</div>
+
+			<div class="footer">
+				<p>🕒 Email này được gửi từ form góp ý trên website</p>
+				<p>Thời gian: {{timestamp}}</p>
+				<p>Vui lòng phản hồi trực tiếp cho người gửi tại: {{email}}</p>
+			</div>
+		</div>
+	</body>
+</html>

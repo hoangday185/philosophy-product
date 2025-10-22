@@ -3,6 +3,8 @@
 import type React from "react";
 
 import { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/animations/input";
 import { Label } from "@/components/ui/label";
@@ -15,8 +17,12 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Send } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+	feedbackSchema,
+	type FeedbackFormData,
+} from "@/lib/validations/feedback";
 
 const LabelInputContainer = ({
 	children,
@@ -42,18 +48,62 @@ const BottomGradient = () => {
 };
 
 export function FeedbackForm() {
-	const [formData, setFormData] = useState({
-		name: "",
-		email: "",
-		type: "",
-		subject: "",
-		message: "",
+	const [submitStatus, setSubmitStatus] = useState<{
+		type: "success" | "error" | null;
+		message: string;
+	}>({ type: null, message: "" });
+
+	const {
+		control,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+		reset,
+		register,
+	} = useForm<FeedbackFormData>({
+		resolver: zodResolver(feedbackSchema),
+		defaultValues: {
+			name: "",
+			email: "",
+			type: "",
+			subject: "",
+			message: "",
+		},
 	});
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		// Handle form submission
-		console.log("Form submitted:", formData);
+	const onSubmit = async (data: FeedbackFormData) => {
+		setSubmitStatus({ type: null, message: "" });
+
+		try {
+			const response = await fetch("/api/send-feedback", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+
+			const result = await response.json();
+
+			if (response.ok) {
+				setSubmitStatus({
+					type: "success",
+					message: result.message || "Góp ý đã được gửi thành công!",
+				});
+				// Reset form
+				reset();
+			} else {
+				setSubmitStatus({
+					type: "error",
+					message: result.error || "Có lỗi xảy ra khi gửi góp ý",
+				});
+			}
+		} catch (error) {
+			console.error("Error submitting form:", error);
+			setSubmitStatus({
+				type: "error",
+				message: "Không thể kết nối đến server. Vui lòng thử lại sau.",
+			});
+		}
 	};
 
 	return (
@@ -62,20 +112,42 @@ export function FeedbackForm() {
 				<CardTitle className="text-2xl">Gửi góp ý</CardTitle>
 			</CardHeader>
 			<CardContent>
-				<form onSubmit={handleSubmit} className="space-y-6">
+				{/* Status Message */}
+				{submitStatus.type && (
+					<div
+						className={cn(
+							"flex items-center gap-2 p-4 rounded-lg mb-6",
+							submitStatus.type === "success"
+								? "bg-green-50 text-green-700 border border-green-200"
+								: "bg-red-50 text-red-700 border border-red-200"
+						)}
+					>
+						{submitStatus.type === "success" ? (
+							<CheckCircle className="w-5 h-5" />
+						) : (
+							<AlertCircle className="w-5 h-5" />
+						)}
+						<span>{submitStatus.message}</span>
+					</div>
+				)}
+
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					noValidate
+					className="space-y-6"
+				>
 					{/* Name Field */}
 					<LabelInputContainer className="space-y-2">
 						<Label htmlFor="name">Tên bạn</Label>
 						<Input
 							id="name"
 							type="text"
-							value={formData.name}
-							onChange={(e) =>
-								setFormData({ ...formData, name: e.target.value })
-							}
-							className="w-full"
-							required
+							{...register("name")}
+							className={cn("w-full", errors.name && "border-red-500")}
 						/>
+						{errors.name && (
+							<p className="text-sm text-red-500 mt-1">{errors.name.message}</p>
+						)}
 					</LabelInputContainer>
 
 					{/* Email Field */}
@@ -84,34 +156,42 @@ export function FeedbackForm() {
 						<Input
 							id="email"
 							type="email"
-							value={formData.email}
-							onChange={(e) =>
-								setFormData({ ...formData, email: e.target.value })
-							}
-							className="w-full"
-							required
+							{...register("email")}
+							className={cn("w-full", errors.email && "border-red-500")}
 						/>
+						{errors.email && (
+							<p className="text-sm text-red-500 mt-1">
+								{errors.email.message}
+							</p>
+						)}
 					</LabelInputContainer>
 
 					{/* Feedback Type */}
 					<LabelInputContainer className="space-y-2">
 						<Label htmlFor="type">Loại góp ý</Label>
-						<Select
-							value={formData.type}
-							onValueChange={(value) =>
-								setFormData({ ...formData, type: value })
-							}
-						>
-							<SelectTrigger id="type" className="w-full">
-								<SelectValue placeholder="Chọn loại" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="bug">Báo lỗi</SelectItem>
-								<SelectItem value="feature">Đề xuất tính năng</SelectItem>
-								<SelectItem value="content">Góp ý nội dung</SelectItem>
-								<SelectItem value="other">Khác</SelectItem>
-							</SelectContent>
-						</Select>
+						<Controller
+							name="type"
+							control={control}
+							render={({ field }) => (
+								<Select onValueChange={field.onChange} value={field.value}>
+									<SelectTrigger
+										id="type"
+										className={cn("w-full", errors.type && "border-red-500")}
+									>
+										<SelectValue placeholder="Chọn loại" />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="bug">Báo lỗi</SelectItem>
+										<SelectItem value="feature">Đề xuất tính năng</SelectItem>
+										<SelectItem value="content">Góp ý nội dung</SelectItem>
+										<SelectItem value="other">Khác</SelectItem>
+									</SelectContent>
+								</Select>
+							)}
+						/>
+						{errors.type && (
+							<p className="text-sm text-red-500 mt-1">{errors.type.message}</p>
+						)}
 					</LabelInputContainer>
 
 					{/* Subject Field */}
@@ -120,13 +200,14 @@ export function FeedbackForm() {
 						<Input
 							id="subject"
 							type="text"
-							value={formData.subject}
-							onChange={(e) =>
-								setFormData({ ...formData, subject: e.target.value })
-							}
-							className="w-full"
-							required
+							{...register("subject")}
+							className={cn("w-full", errors.subject && "border-red-500")}
 						/>
+						{errors.subject && (
+							<p className="text-sm text-red-500 mt-1">
+								{errors.subject.message}
+							</p>
+						)}
 					</LabelInputContainer>
 
 					{/* Message Field */}
@@ -134,19 +215,31 @@ export function FeedbackForm() {
 						<Label htmlFor="message">Nội dung</Label>
 						<Textarea
 							id="message"
-							value={formData.message}
-							onChange={(e) =>
-								setFormData({ ...formData, message: e.target.value })
-							}
-							className="w-full min-h-[150px] resize-none"
-							required
+							{...register("message")}
+							className={cn(
+								"w-full min-h-[150px] resize-none",
+								errors.message && "border-red-500"
+							)}
 						/>
+						{errors.message && (
+							<p className="text-sm text-red-500 mt-1">
+								{errors.message.message}
+							</p>
+						)}
 					</LabelInputContainer>
 
 					{/* Submit Button */}
-					<Button type="submit" className="w-full">
-						<Send className="w-4 h-4 mr-2" />
-						Gửi góp ý
+					<Button
+						type="submit"
+						className="w-full group/btn relative"
+						disabled={isSubmitting}
+					>
+						{isSubmitting ? (
+							<Loader2 className="w-4 h-4 mr-2 animate-spin" />
+						) : (
+							<Send className="w-4 h-4 mr-2" />
+						)}
+						{isSubmitting ? "Đang gửi..." : "Gửi góp ý"}
 						<BottomGradient />
 					</Button>
 				</form>
