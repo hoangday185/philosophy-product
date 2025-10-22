@@ -1,86 +1,69 @@
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
+import { TypingAnimation } from "@/components/ui/typing-animation";
 import React from "react";
 
 // Gom tất cả tech items
 const allTechItems = [
 	// Frontend Framework
 	{
-		title: "Next.js",
-		description: "React framework for production",
+		title: "Next.js 15",
+		description: "React framework for production with App Router",
 		link: "https://nextjs.org",
-		category: "Frontend Framework",
 	},
 	{
-		title: "React",
-		description: "JavaScript library for building UI",
+		title: "React 19",
+		description: "JavaScript library for building user interfaces",
 		link: "https://react.dev",
-		category: "Frontend Framework",
 	},
 	{
-		title: "TypeScript",
-		description: "Typed JavaScript at scale",
-		link: "https://www.typescriptlang.org",
-		category: "Frontend Framework",
-	},
-	// Styling & Animation
-	{
-		title: "Tailwind CSS",
-		description: "Utility-first CSS framework",
-		link: "https://tailwindcss.com",
-		category: "Styling & Animation",
-	},
-	{
-		title: "CSS Modules",
-		description: "Scoped CSS for components",
-		link: "https://github.com/css-modules/css-modules",
-		category: "Styling & Animation",
-	},
-	{
-		title: "Framer Motion",
-		description: "Production-ready animation library",
+		title: "Motion (Framer Motion)",
+		description: "Production-ready animation library for React",
 		link: "https://www.framer.com/motion",
-		category: "Styling & Animation",
-	},
-	// Maps & Visualization
-	{
-		title: "Leaflet",
-		description: "Interactive maps library",
-		link: "https://leafletjs.com",
-		category: "Maps & Visualization",
 	},
 	{
-		title: "React Leaflet",
-		description: "React components for Leaflet",
-		link: "https://react-leaflet.js.org",
-		category: "Maps & Visualization",
+		title: "tailwindcss-animate",
+		description: "Animation utilities for Tailwind CSS",
+		link: "https://github.com/jamiebuilds/tailwindcss-animate",
 	},
-	// AI Integration
+	// UI Components & Libraries
 	{
-		title: "Google Generative AI",
-		description: "AI Studio for content generation",
-		link: "https://ai.google.dev",
-		category: "AI Integration",
+		title: "Radix UI",
+		description: "Unstyled, accessible components for React",
+		link: "https://www.radix-ui.com",
 	},
-	// Icons & UI
+	{
+		title: "Shadcn/ui",
+		description: "Re-usable components built with Radix UI and Tailwind",
+		link: "https://ui.shadcn.com",
+	},
+	{
+		title: "Aceternity UI",
+		description: "Beautiful animated components for modern websites",
+		link: "https://ui.aceternity.com",
+	},
+	{
+		title: "Magicui",
+		description: "Beautiful animated components for modern websites",
+		link: "https://ui.magicui.com",
+	},
+	// Icons
 	{
 		title: "Lucide React",
-		description: "Beautiful & consistent icons",
+		description: "Beautiful & consistent icon toolkit",
 		link: "https://lucide.dev",
-		category: "Icons & UI",
 	},
-	// Development Tools
+	// Particles & Effects
 	{
-		title: "Biome",
-		description: "Fast formatter and linter",
-		link: "https://biomejs.dev",
-		category: "Development Tools",
+		title: "tsParticles",
+		description: "Lightweight particles animation library",
+		link: "https://particles.js.org",
 	},
+	// UI Utilities
 	{
-		title: "Turbopack",
-		description: "Next-gen bundler for Next.js",
-		link: "https://turbo.build/pack",
-		category: "Development Tools",
+		title: "Next Themes",
+		description: "Perfect dark mode for Next.js",
+		link: "https://github.com/pacocoursey/next-themes",
 	},
 ];
 
@@ -100,7 +83,7 @@ const TechPage = () => {
 					<div className="container mx-auto">
 						<div className="text-center mb-12">
 							<h1 className="font-bold text-4xl md:text-6xl mb-4">
-								Tech Stack
+								<TypingAnimation> Tech Stack </TypingAnimation>
 							</h1>
 							<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
 								Technologies and tools used to build this e-learning platform
