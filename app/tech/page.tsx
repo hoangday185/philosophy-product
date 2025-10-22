@@ -65,6 +65,12 @@ const allTechItems = [
 		description: "Perfect dark mode for Next.js",
 		link: "https://github.com/pacocoursey/next-themes",
 	},
+	// UI Utilities
+	{
+		title: "Google Gemini API",
+		description: "Google's latest AI model for text generation",
+		link: "https://gemini.google.com",
+	},
 ];
 
 const TechPage = () => {
