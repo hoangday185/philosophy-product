@@ -15,8 +15,10 @@ import { BookOpen, ChevronRight, Globe, type LucideIcon } from "lucide-react";
 import { RainbowButton } from "./ui/rainbow-button";
 import { MagicCard } from "@/components/ui/magic-card";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 
 interface ProgramCardProps {
+	link?: string;
 	icon: string;
 	title: string;
 	description: string;
@@ -36,6 +38,7 @@ const getIconComponent = (icon: string): LucideIcon => {
 };
 
 export function ProgramCard({
+	link,
 	icon,
 	title,
 	description,
@@ -82,13 +85,25 @@ export function ProgramCard({
 			<Separator className="mb-4" />
 
 			<CardFooter className="pt-0 flex items-center justify-between">
-				<RainbowButton
-					variant="outline"
-					className="w-full flex items-center justify-between"
-				>
-					<span>Khám phá</span>
-					<ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-				</RainbowButton>
+				{link ? (
+					<Link href={link} className="w-full">
+						<RainbowButton
+							variant="outline"
+							className="w-full flex items-center justify-between"
+						>
+							<span>Khám phá</span>
+							<ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+						</RainbowButton>
+					</Link>
+				) : (
+					<RainbowButton
+						variant="outline"
+						className="w-full flex items-center justify-between"
+					>
+						<span>Khám phá</span>
+						<ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+					</RainbowButton>
+				)}
 			</CardFooter>
 		</MagicCard>
 	);

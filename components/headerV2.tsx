@@ -39,22 +39,22 @@ const HeaderV2 = () => {
 			icon: Home,
 		},
 		{
-			name: "Bài tập",
-			link: "/quiz",
+			name: "Bài viết",
+			link: "/blogs",
 			icon: Brain,
 		},
-		{
-			name: "Thư viện",
-			link: "/library",
-			icon: BookMarked,
-		},
+		// {
+		// 	name: "Thư viện",
+		// 	link: "/library",
+		// 	icon: BookMarked,
+		// },
 		{
 			name: "Góp ý",
 			link: "/feedback",
 			icon: MessageSquare,
 		},
 		{
-			name: "Công nghệ",
+			name: "Công nghệ và thành viên",
 			link: "/tech",
 			icon: Code,
 		},

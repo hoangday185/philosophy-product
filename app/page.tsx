@@ -12,7 +12,7 @@ export default function HomePage() {
 		<div className="min-h-screen bg-background">
 			<HeroSection />
 			<ProgramsSection />
-			<LatestArticlesSection />
+			{/* <LatestArticlesSection /> */}
 			<StatisticsSection />
 			<ScrollToTop />
 		</div>
