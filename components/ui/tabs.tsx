@@ -128,7 +128,7 @@ export const Tabs = ({
 		<>
 			<div
 				className={cn(
-					"flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full mb-4 sm:mb-6",
+					"flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full mb-3 sm:mb-4",
 					containerClassName
 				)}
 			>
@@ -141,7 +141,7 @@ export const Tabs = ({
 						onMouseEnter={() => setHovering(true)}
 						onMouseLeave={() => setHovering(false)}
 						className={cn(
-							"relative px-3 sm:px-4 py-2 rounded-full text-sm sm:text-base",
+							"relative px-2 sm:px-3 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm",
 							tabClassName
 						)}
 						style={{
@@ -167,7 +167,7 @@ export const Tabs = ({
 			</div>
 
 			{/* Layout cho 2 phần content */}
-			<div className="flex flex-col lg:flex-row gap-4 sm:gap-6 lg:gap-8 mt-6 sm:mt-8 w-full">
+			<div className="flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6 mt-4 sm:mt-6 w-full">
 				{/* Phần 1: FadeInDiv - Content của tabs */}
 				<div className="w-full lg:w-1/2 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
 					<FadeInDiv

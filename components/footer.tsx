@@ -54,7 +54,7 @@ export function Footer() {
 					</div>
 
 					{/* Quick Links */}
-					<div className="space-y-4">
+					{/* <div className="space-y-4">
 						<h3 className="text-sm font-semibold uppercase tracking-wide mb-4">
 							Liên kết nhanh
 						</h3>
@@ -87,10 +87,10 @@ export function Footer() {
 								</Link>
 							</li>
 						</ul>
-					</div>
+					</div> */}
 
 					{/* Resources & Tools */}
-					<div className="space-y-4">
+					{/* <div className="space-y-4">
 						<h3 className="text-sm font-semibold uppercase tracking-wide mb-4">
 							Tài nguyên & Công cụ
 						</h3>
@@ -132,7 +132,7 @@ export function Footer() {
 								</Link>
 							</li>
 						</ul>
-					</div>
+					</div> */}
 				</div>
 			</div>
 

@@ -1,74 +1,83 @@
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { TypingAnimation } from "@/components/ui/typing-animation";
+import { TEAM_MEMBER } from "@/app/db/map";
 import React from "react";
+
+// Transform team members to match HoverEffect format
+const teamItems = TEAM_MEMBER.map((member) => ({
+	title: member.name,
+	description: `${member.role} • MSSV: ${member.id}`,
+	link: `#${member.id}`, // Unique link using member ID
+}));
 
 // Gom tất cả tech items
 const allTechItems = [
-	// Frontend Framework
+	// Framework Frontend
 	{
 		title: "Next.js 15",
-		description: "React framework for production with App Router",
+		description: "Framework React cho production với App Router",
 		link: "https://nextjs.org",
 	},
 	{
 		title: "React 19",
-		description: "JavaScript library for building user interfaces",
+		description: "Thư viện JavaScript để xây dựng giao diện người dùng",
 		link: "https://react.dev",
 	},
 	{
 		title: "Motion (Framer Motion)",
-		description: "Production-ready animation library for React",
+		description: "Thư viện animation sẵn sàng cho production",
 		link: "https://www.framer.com/motion",
 	},
 	{
 		title: "tailwindcss-animate",
-		description: "Animation utilities for Tailwind CSS",
+		description: "Tiện ích animation cho Tailwind CSS",
 		link: "https://github.com/jamiebuilds/tailwindcss-animate",
 	},
-	// UI Components & Libraries
+	// Thư viện UI & Components
 	{
 		title: "Radix UI",
-		description: "Unstyled, accessible components for React",
+		description: "Components không style, dễ tiếp cận cho React",
 		link: "https://www.radix-ui.com",
 	},
 	{
 		title: "Shadcn/ui",
-		description: "Re-usable components built with Radix UI and Tailwind",
+		description:
+			"Components tái sử dụng được xây dựng với Radix UI và Tailwind",
 		link: "https://ui.shadcn.com",
 	},
 	{
 		title: "Aceternity UI",
-		description: "Beautiful animated components for modern websites",
+		description: "Components animation đẹp cho website hiện đại",
 		link: "https://ui.aceternity.com",
 	},
 	{
 		title: "Magicui",
-		description: "Beautiful animated components for modern websites",
+		description: "Components animation đẹp cho website hiện đại",
 		link: "https://ui.magicui.com",
 	},
 	// Icons
 	{
 		title: "Lucide React",
-		description: "Beautiful & consistent icon toolkit",
+		description: "Bộ công cụ icon đẹp và nhất quán",
 		link: "https://lucide.dev",
 	},
 	// Particles & Effects
 	{
 		title: "tsParticles",
-		description: "Lightweight particles animation library",
+		description: "Thư viện animation particles nhẹ",
 		link: "https://particles.js.org",
 	},
-	// UI Utilities
+	// Tiện ích UI
 	{
 		title: "Next Themes",
-		description: "Perfect dark mode for Next.js",
+		description: "Dark mode hoàn hảo cho Next.js",
 		link: "https://github.com/pacocoursey/next-themes",
 	},
-	// UI Utilities
+	// API AI
 	{
 		title: "Google Gemini API",
-		description: "Google's latest AI model for text generation",
+		description: "Mô hình AI mới nhất của Google cho tạo văn bản",
 		link: "https://gemini.google.com",
 	},
 ];
@@ -89,15 +98,32 @@ const TechPage = () => {
 					<div className="container mx-auto">
 						<div className="text-center mb-12">
 							<h1 className="font-bold text-4xl md:text-6xl mb-4">
-								<TypingAnimation> Tech Stack </TypingAnimation>
+								<TypingAnimation> Công Nghệ Sử Dụng </TypingAnimation>
 							</h1>
 							<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-								Technologies and tools used to build this e-learning platform
+								Các công nghệ và công cụ được sử dụng để xây dựng nền tảng
+								e-learning này
 							</p>
 						</div>
 
 						<div className="max-w-7xl mx-auto">
 							<HoverEffect items={allTechItems} />
+						</div>
+
+						{/* Team Members Section */}
+						<div className="mt-20">
+							<div className="text-center mb-12">
+								<h2 className="font-bold text-3xl md:text-5xl mb-4">
+									<TypingAnimation> Đội Ngũ Phát Triển </TypingAnimation>
+								</h2>
+								<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+									Gặp gỡ những cá nhân tài năng đứng sau dự án này
+								</p>
+							</div>
+
+							<div className="max-w-5xl mx-auto">
+								<HoverEffect items={teamItems} />
+							</div>
 						</div>
 					</div>
 				</section>
