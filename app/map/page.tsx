@@ -1,13 +1,30 @@
 "use client";
 import { Tabs } from "@/components/ui/tabs";
-import VietnamMap from "@/components/ui/vietnam-map";
 import { motion } from "motion/react";
 import MAP_DATA from "@/app/db/map";
+import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
+
+// Dynamic import VietnamMap để tránh SSR issues
+const VietnamMap = dynamic(() => import("@/components/ui/vietnam-map"), {
+	ssr: false,
+	loading: () => (
+		<div className="w-full h-full flex items-center justify-center">
+			<div className="text-muted-foreground">Đang tải bản đồ...</div>
+		</div>
+	),
+});
 
 // Lấy tất cả địa điểm từ MAP_DATA
 const allAddresses = MAP_DATA.flatMap((resistance: any) => resistance.address);
 
 export default function MapPage() {
+	const [mounted, setMounted] = useState(false);
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
 	// Tạo tabs từ MAP_DATA
 	const tabs = allAddresses.map((address: any, index: number) => ({
 		title: address.name,
@@ -23,6 +40,18 @@ export default function MapPage() {
 			</div>
 		),
 	}));
+
+	if (!mounted) {
+		return (
+			<div className="py-8 md:py-20 dark:bg-black bg-white w-full min-h-screen">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="text-center">
+						<div className="text-muted-foreground">Đang tải...</div>
+					</div>
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="py-8 md:py-20 dark:bg-black bg-white w-full min-h-screen">
