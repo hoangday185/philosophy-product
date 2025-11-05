@@ -68,9 +68,11 @@ export default function LeafletMap({
 	const [animatedMarkers, setAnimatedMarkers] = useState<number[]>([]);
 	const timeoutRefs = useRef<NodeJS.Timeout[]>([]);
 
-	// Avoid hydration mismatch
+	// Avoid hydration mismatch and ensure window is available
 	useEffect(() => {
-		setMounted(true);
+		if (typeof window !== "undefined") {
+			setMounted(true);
+		}
 
 		// Animate markers sequentially
 		if (provinces.length > 0) {
@@ -168,6 +170,17 @@ export default function LeafletMap({
 		tooltipBg: theme === "dark" ? "#374151" : "#ffffff",
 		tooltipText: theme === "dark" ? "#f9fafb" : "#1f2937",
 	};
+
+	// Don't render anything on server-side or if window is not available
+	if (!mounted || typeof window === "undefined") {
+		return (
+			<div className="w-full h-full flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
+				<div className="text-gray-500 dark:text-gray-400">
+					Đang tải bản đồ...
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className="w-full h-full rounded-lg overflow-hidden">
@@ -331,20 +344,20 @@ export default function LeafletMap({
 								>
 									{province.originalName || province.name}
 								</p>
-								
-								{province.originalName && province.originalName !== province.name && (
-									<p className="text-xs mb-2 opacity-70">
-										📍 {province.name}
-									</p>
-								)}
+
+								{province.originalName &&
+									province.originalName !== province.name && (
+										<p className="text-xs mb-2 opacity-70">
+											📍 {province.name}
+										</p>
+									)}
 
 								{province.content ? (
 									<div className="text-xs leading-relaxed max-h-32 overflow-y-auto">
 										<p className="whitespace-pre-line">
-											{province.content.length > 200 
-												? `${province.content.substring(0, 200)}...` 
-												: province.content
-											}
+											{province.content.length > 200
+												? `${province.content.substring(0, 200)}...`
+												: province.content}
 										</p>
 									</div>
 								) : (
