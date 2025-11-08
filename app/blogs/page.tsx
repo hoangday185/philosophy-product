@@ -1,10 +1,10 @@
 "use client";
 
-import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ScrollToTop } from "@/components/scroll-to-top";
-import { BlogCard } from "@/components/blog-card";
-import { ChevronRight, Search } from "lucide-react";
+import { ProgramCard } from "@/components/program-card";
+import { TextAnimate } from "@/components/ui/text-animate";
+import { ChevronRight, Search, BookOpen, Globe } from "lucide-react";
 import Link from "next/link";
 import MAP_DATA from "@/app/db/map";
 import { useState } from "react";
@@ -12,25 +12,31 @@ import { useState } from "react";
 export default function ResistanceWarsPage() {
 	const [searchTerm, setSearchTerm] = useState("");
 
-	// Transform database data to match BlogCard component props
+	// Transform database data to match ProgramCard component props
 	const allResistanceWars = MAP_DATA.map((resistance, index) => ({
 		id: index + 1,
+		link: `/map/${resistance.id}`,
+		icon:
+			resistance.id === "cuoc-khang-chien-chong-phap" ? "BookOpen" : "Globe",
 		title: resistance.name,
 		description: resistance.description,
-		image:
+		articleCount: resistance.address.length,
+		iconBgColor:
 			resistance.id === "cuoc-khang-chien-chong-phap"
-				? "/khangchienchongphap.jpg"
-				: "/khangchienchongmy.jpg",
-		rating: resistance.id === "cuoc-khang-chien-chong-phap" ? 4.9 : 4.8,
-		duration: `${resistance.address.length} địa điểm`,
-		badge:
-			resistance.id === "cuoc-khang-chien-chong-phap"
-				? "1945-1954"
-				: "1954-1975",
+				? "bg-red-600"
+				: "bg-blue-600",
 		badgeColor:
 			resistance.id === "cuoc-khang-chien-chong-phap"
-				? "bg-red-500"
-				: "bg-blue-500",
+				? "text-red-600"
+				: "text-blue-600",
+		gradientFrom:
+			resistance.id === "cuoc-khang-chien-chong-phap"
+				? "from-red-200"
+				: "from-blue-200",
+		gradientTo:
+			resistance.id === "cuoc-khang-chien-chong-phap"
+				? "to-red-100"
+				: "to-blue-100",
 		mapId: resistance.id, // Add the map ID for linking
 	}));
 
@@ -66,9 +72,15 @@ export default function ResistanceWarsPage() {
 							<div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
 								Lịch sử kháng chiến
 							</div>
-							<h1 className="text-4xl md:text-5xl font-bold mb-4 text-balance">
+							<TextAnimate
+								animation="scaleDown"
+								by="character"
+								as="h1"
+								className="text-4xl md:text-5xl font-bold mb-4 text-balance"
+								once
+							>
 								Các cuộc kháng chiến chống ngoại xâm
-							</h1>
+							</TextAnimate>
 							<p className="text-muted-foreground text-lg">
 								Tìm hiểu về những cuộc kháng chiến anh dũng của dân tộc Việt Nam
 								qua các thời kỳ lịch sử, từ cổ đại đến hiện đại.
@@ -101,11 +113,34 @@ export default function ResistanceWarsPage() {
 				</section>
 
 				{/* Content */}
-				<section className="py-8">
+				<section className="py-16">
 					<div className="container mx-auto px-4">
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+						<TextAnimate
+							animation="scaleDown"
+							by="character"
+							as="h2"
+							className="text-3xl md:text-4xl font-bold text-center mb-12"
+							once
+						>
+							Khám phá lịch sử kháng chiến
+						</TextAnimate>
+
+						<div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
 							{resistanceWars.length > 0 ? (
-								resistanceWars.map((war) => <BlogCard key={war.id} {...war} />)
+								resistanceWars.map((war) => (
+									<ProgramCard
+										key={war.id}
+										link={war.link}
+										icon={war.icon}
+										title={war.title}
+										description={war.description}
+										articleCount={war.articleCount}
+										iconBgColor={war.iconBgColor}
+										badgeColor={war.badgeColor}
+										gradientFrom={war.gradientFrom}
+										gradientTo={war.gradientTo}
+									/>
+								))
 							) : (
 								<div className="col-span-full text-center py-12">
 									<Search className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
@@ -122,7 +157,8 @@ export default function ResistanceWarsPage() {
 				</section>
 			</main>
 
-			{/* <ScrollToTop /> */}
+			<Footer />
+			<ScrollToTop />
 		</div>
 	);
 }

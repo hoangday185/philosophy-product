@@ -1,7 +1,7 @@
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { TypingAnimation } from "@/components/ui/typing-animation";
-import { TEAM_MEMBER } from "@/app/db/map";
+import { TEAM_MEMBER, DATA_OF_PROJECT } from "@/app/db/map";
 import React from "react";
 
 // Transform team members to match HoverEffect format
@@ -9,6 +9,13 @@ const teamItems = TEAM_MEMBER.map((member) => ({
 	title: member.name,
 	description: `${member.role} • MSSV: ${member.id}`,
 	link: `#${member.id}`, // Unique link using member ID
+}));
+
+// Transform project data to match HoverEffect format
+const projectItems = DATA_OF_PROJECT.map((project) => ({
+	title: project.title,
+	description: "Tài liệu dự án và hướng dẫn sử dụng",
+	link: project.link,
 }));
 
 // Gom tất cả tech items
@@ -108,6 +115,22 @@ const TechPage = () => {
 
 						<div className="max-w-7xl mx-auto">
 							<HoverEffect items={allTechItems} />
+						</div>
+
+						{/* Project Documentation Section */}
+						<div className="mt-20">
+							<div className="text-center mb-12">
+								<h2 className="font-bold text-3xl md:text-5xl mb-4">
+									<TypingAnimation> Tài Liệu Dự Án </TypingAnimation>
+								</h2>
+								<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+									Tài liệu chi tiết về dự án và hướng dẫn sử dụng
+								</p>
+							</div>
+
+							<div className="max-w-5xl mx-auto">
+								<HoverEffect items={projectItems} />
+							</div>
 						</div>
 
 						{/* Team Members Section */}

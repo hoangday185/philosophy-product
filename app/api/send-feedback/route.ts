@@ -42,7 +42,19 @@ export async function POST(request: NextRequest) {
 			);
 		}
 
-		// Create transporter (you'll need to configure this with your email service)
+		// Validate SMTP environment variables
+		if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+			console.error("Missing SMTP credentials:", {
+				hasUser: !!process.env.SMTP_USER,
+				hasPass: !!process.env.SMTP_PASS,
+			});
+			return NextResponse.json(
+				{ error: "Cấu hình email chưa đầy đủ" },
+				{ status: 500 }
+			);
+		}
+
+		// Create transporter with better error handling
 		const transporter = nodemailer.createTransport({
 			host: process.env.SMTP_HOST || "smtp.gmail.com",
 			port: parseInt(process.env.SMTP_PORT || "587"),
@@ -50,6 +62,10 @@ export async function POST(request: NextRequest) {
 			auth: {
 				user: process.env.SMTP_USER,
 				pass: process.env.SMTP_PASS,
+			},
+			// Add additional options for Gmail
+			tls: {
+				rejectUnauthorized: false,
 			},
 		});
 
@@ -88,6 +104,18 @@ export async function POST(request: NextRequest) {
 			text: textContent,
 		};
 
+		// Test connection first
+		try {
+			await transporter.verify();
+			console.log("SMTP connection verified successfully");
+		} catch (verifyError) {
+			console.error("SMTP verification failed:", verifyError);
+			return NextResponse.json(
+				{ error: "Không thể kết nối đến server email. Vui lòng kiểm tra cấu hình." },
+				{ status: 500 }
+			);
+		}
+
 		// Send email
 		await transporter.sendMail(mailOptions);
 
@@ -97,8 +125,20 @@ export async function POST(request: NextRequest) {
 		);
 	} catch (error) {
 		console.error("Error sending email:", error);
+		
+		// Provide specific error messages
+		let errorMessage = "Có lỗi xảy ra khi gửi email";
+		
+		if (error.code === 'EAUTH') {
+			errorMessage = "Lỗi xác thực email. Vui lòng kiểm tra thông tin đăng nhập.";
+		} else if (error.code === 'ECONNECTION') {
+			errorMessage = "Không thể kết nối đến server email.";
+		} else if (error.code === 'ETIMEDOUT') {
+			errorMessage = "Kết nối email bị timeout. Vui lòng thử lại.";
+		}
+		
 		return NextResponse.json(
-			{ error: "Có lỗi xảy ra khi gửi góp ý. Vui lòng thử lại sau." },
+			{ error: errorMessage },
 			{ status: 500 }
 		);
 	}
