@@ -21,9 +21,6 @@ const Marker = dynamic(
 	() => import("react-leaflet").then((mod) => mod.Marker),
 	{ ssr: false }
 ) as any;
-const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
-	ssr: false,
-}) as any;
 const Polyline = dynamic(
 	() => import("react-leaflet").then((mod) => mod.Polyline),
 	{ ssr: false }
@@ -38,10 +35,6 @@ interface LeafletMapProps {
 		name: string;
 		lat: number;
 		lng: number;
-		students?: number;
-		courses?: number;
-		content?: string; // Thêm content cho từng marker
-		originalName?: string; // Tên gốc của chiến dịch
 	}>;
 	dots?: Array<{
 		start: { lat: number; lng: number; label?: string };
@@ -165,8 +158,6 @@ export default function LeafletMap({
 
 	// Màu sắc dựa trên theme
 	const themeColors = {
-		popupBg: theme === "dark" ? "#1f2937" : "#ffffff",
-		popupText: theme === "dark" ? "#f9fafb" : "#1f2937",
 		tooltipBg: theme === "dark" ? "#374151" : "#ffffff",
 		tooltipText: theme === "dark" ? "#f9fafb" : "#1f2937",
 	};
@@ -185,14 +176,6 @@ export default function LeafletMap({
 	return (
 		<div className="w-full h-full rounded-lg overflow-hidden">
 			<style jsx global>{`
-				.leaflet-popup-content-wrapper {
-					background: ${themeColors.popupBg} !important;
-					color: ${themeColors.popupText} !important;
-					border-radius: 8px !important;
-				}
-				.leaflet-popup-tip {
-					background: ${themeColors.popupBg} !important;
-				}
 				.leaflet-tooltip {
 					background: ${themeColors.tooltipBg} !important;
 					color: ${themeColors.tooltipText} !important;
@@ -204,8 +187,8 @@ export default function LeafletMap({
 					border-top-color: ${themeColors.tooltipBg} !important;
 				}
 				.leaflet-control-zoom a {
-					background: ${themeColors.popupBg} !important;
-					color: ${themeColors.popupText} !important;
+					background: ${themeColors.tooltipBg} !important;
+					color: ${themeColors.tooltipText} !important;
 					border: 1px solid ${theme === "dark" ? "#4b5563" : "#e5e7eb"} !important;
 				}
 				.leaflet-control-zoom a:hover {
@@ -327,91 +310,8 @@ export default function LeafletMap({
 						<Tooltip direction="top" offset={[0, -10]} opacity={0.9}>
 							<div className="text-xs font-medium">{province.name}</div>
 						</Tooltip>
-						<Popup>
-							<div
-								className="text-sm min-w-[200px] max-w-[400px] p-3 rounded-lg"
-								style={{
-									backgroundColor: themeColors.popupBg,
-									color: themeColors.popupText,
-									border: `1px solid ${
-										theme === "dark" ? "#4b5563" : "#e5e7eb"
-									}`,
-								}}
-							>
-								<p
-									className="font-bold mb-2 text-base"
-									style={{ color: themeColors.popupText }}
-								>
-									{province.originalName || province.name}
-								</p>
-
-								{province.originalName &&
-									province.originalName !== province.name && (
-										<p className="text-xs mb-2 opacity-70">
-											📍 {province.name}
-										</p>
-									)}
-
-								{province.content ? (
-									<div className="text-xs leading-relaxed max-h-32 overflow-y-auto">
-										<p className="whitespace-pre-line">
-											{province.content.length > 200
-												? `${province.content.substring(0, 200)}...`
-												: province.content}
-										</p>
-									</div>
-								) : (
-									<div>
-										{province.students && (
-											<p className="text-xs mb-1 flex items-center opacity-80">
-												<span className="w-2 h-2 bg-blue-500 rounded-full mr-2"></span>
-												{province.students.toLocaleString()} học viên
-											</p>
-										)}
-										{province.courses && (
-											<p className="text-xs flex items-center opacity-80">
-												<span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-												{province.courses} khóa học
-											</p>
-										)}
-									</div>
-								)}
-							</div>
-						</Popup>
 					</Marker>
 				))}
-
-				{/* Hiển thị markers cho start/end points của dots nếu showDotCircles = true - Tạm thời ẩn */}
-				{false &&
-					showDotCircles &&
-					dots.map((dot, index) => (
-						<div key={`dot-markers-${index}`}>
-							<Marker
-								position={[dot.start.lat, dot.start.lng]}
-								icon={createCustomIcon(lineColor)}
-							>
-								{dot.start.label && (
-									<Popup>
-										<div className="text-sm">
-											<p className="font-bold">{dot.start.label}</p>
-										</div>
-									</Popup>
-								)}
-							</Marker>
-							<Marker
-								position={[dot.end.lat, dot.end.lng]}
-								icon={createCustomIcon(lineColor)}
-							>
-								{dot.end.label && (
-									<Popup>
-										<div className="text-sm">
-											<p className="font-bold">{dot.end.label}</p>
-										</div>
-									</Popup>
-								)}
-							</Marker>
-						</div>
-					))}
 			</MapContainer>
 		</div>
 	);
