@@ -75,8 +75,8 @@ export default function ResistanceWarsPage() {
 							<TextAnimate
 								animation="scaleDown"
 								by="character"
-								as="h1"
-								className="text-4xl md:text-5xl font-bold mb-4 text-balance"
+								as="p"
+								className="text-3xl w-[900px] md:text-5xl font-bold mb-4 text-balance"
 								once
 							>
 								Các cuộc kháng chiến chống ngoại xâm
