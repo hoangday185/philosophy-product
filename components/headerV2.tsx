@@ -69,7 +69,7 @@ const HeaderV2 = () => {
 					<NavbarLogo />
 					<NavItems items={navItems} />
 					<div className="flex items-center gap-4">
-						<NavbarButton variant="secondary">
+						{/* <NavbarButton variant="secondary">
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
 									<Button variant="ghost" size="sm" className="gap-2">
@@ -82,7 +82,7 @@ const HeaderV2 = () => {
 									<DropdownMenuItem>English</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
-						</NavbarButton>
+						</NavbarButton> */}
 						<NavbarButton variant="secondary">
 							<ModeToggle />
 						</NavbarButton>
@@ -114,7 +114,7 @@ const HeaderV2 = () => {
 							</Link>
 						))}
 						<div className="flex w-full flex-col gap-4">
-							<NavbarButton
+							{/* <NavbarButton
 								onClick={() => setIsMobileMenuOpen(false)}
 								variant="primary"
 							>
@@ -130,7 +130,7 @@ const HeaderV2 = () => {
 										<DropdownMenuItem>English</DropdownMenuItem>
 									</DropdownMenuContent>
 								</DropdownMenu>
-							</NavbarButton>
+							</NavbarButton> */}
 							<NavbarButton
 								onClick={() => setIsMobileMenuOpen(false)}
 								variant="primary"

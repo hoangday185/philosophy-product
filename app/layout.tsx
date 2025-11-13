@@ -29,7 +29,7 @@ export default function RootLayout({
 				>
 					<HeaderV2 />
 					{children}
-					<Footer />
+					{/* <Footer /> */}
 					<Analytics />
 				</ThemeProvider>
 			</body>

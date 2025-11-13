@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { ParticlesBackground } from "./animations/particles-background";
 import { BookOpen, Brain } from "lucide-react";
@@ -21,19 +22,25 @@ export function HeroSection() {
 					</p>
 
 					<div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-						<Button className="px-10 py-6  text-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95 rounded-xl">
+						<Button
+							className="px-10 py-6  text-xl font-semibold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white border-0 shadow-lg hover:shadow-2xl hover:shadow-purple-500/25 transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95 rounded-xl"
+							onClick={() => {
+								// Add your click handler logic here
+								console.log("Nội dung button clicked!");
+							}}
+						>
 							<span className="flex items-center gap-2">
 								<BookOpen className="size-5" /> Nội dung
 							</span>
 						</Button>
-						<Button
+						{/* <Button
 							className="px-10 py-6 text-xl font-semibold border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white dark:border-purple-400 dark:text-purple-400 dark:hover:bg-purple-400 dark:hover:text-black transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/20 hover:brightness-110 active:scale-95 rounded-xl"
 							variant="outline"
 						>
 							<span className="flex items-center gap-2">
 								<Brain className="size-5" /> Làm quiz
 							</span>
-						</Button>
+						</Button> */}
 					</div>
 
 					<div className="flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">

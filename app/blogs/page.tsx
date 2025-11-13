@@ -156,9 +156,6 @@ export default function ResistanceWarsPage() {
 					</div>
 				</section>
 			</main>
-
-			<Footer />
-			<ScrollToTop />
 		</div>
 	);
 }

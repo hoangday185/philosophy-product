@@ -32,8 +32,7 @@ export function Footer() {
 							<span className="text-xl font-bold">Philosophy-Learning</span>
 						</div>
 						<p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
-							Nền tảng E-Learning triết học với bài viết song ngữ, quiz tương
-							tác và trợ lý AI thông minh.
+							Nền tảng E-Learning tìm hiểu về lịch sử đảng cộng sản Việt Nam
 						</p>
 						<div className="flex items-center gap-3 pt-2">
 							<Link
