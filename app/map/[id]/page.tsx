@@ -5,7 +5,14 @@ import Link from "next/link";
 import VietnamMap from "@/components/ui/vietnam-map";
 import { Tabs } from "@/components/ui/tabs";
 import MAP_DATA from "@/app/db/map";
-import { use } from "react";
+import Image from "next/image";
+import parse, { domToReact } from "html-react-parser";
+import { use, type ReactNode } from "react";
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface PageProps {
 	params: Promise<{
@@ -21,6 +28,98 @@ export default function ResistanceDetailPage({ params }: PageProps) {
 	if (!resistance) {
 		notFound();
 	}
+
+	const renderAddressContent = (content: string): ReactNode => {
+		const options = {
+			replace: (domNode: unknown) => {
+				if (
+					typeof domNode === "object" &&
+					domNode !== null &&
+					"type" in domNode &&
+					domNode.type === "tag" &&
+					"name" in domNode
+				) {
+					const tagName = (domNode as { name?: string }).name;
+
+					if (tagName === "next-image") {
+						const {
+							src,
+							alt,
+							width,
+							height,
+							class: className,
+							title,
+							"data-tooltip": dataTooltip,
+						} = (
+							domNode as {
+								attribs?: {
+									src?: string;
+									alt?: string;
+									width?: string;
+									height?: string;
+									class?: string;
+									title?: string;
+									"data-tooltip"?: string;
+								};
+							}
+						).attribs ?? {};
+
+						const resolvedSrc = src?.startsWith("/") ? src : `/${src ?? ""}`;
+						const numericWidth = width ? Number.parseInt(width, 10) : undefined;
+						const numericHeight = height
+							? Number.parseInt(height, 10)
+							: undefined;
+						const tooltipText = dataTooltip ?? title;
+
+						if (!resolvedSrc || !numericWidth || !numericHeight) {
+							return null;
+						}
+
+						const imageElement = (
+							<Image
+								key={`${resolvedSrc}-${numericWidth}-${numericHeight}`}
+								src={resolvedSrc}
+								alt={alt ?? ""}
+								width={numericWidth}
+								height={numericHeight}
+								className={className}
+							/>
+						);
+
+						if (!tooltipText) {
+							return imageElement;
+						}
+
+						return (
+							<Tooltip key={`${resolvedSrc}-${tooltipText}`}>
+								<TooltipTrigger asChild>{imageElement}</TooltipTrigger>
+								<TooltipContent side="top" className="max-w-xs text-center">
+									{tooltipText}
+								</TooltipContent>
+							</Tooltip>
+						);
+					}
+
+					if (tagName === "div") {
+						const className = (domNode as { attribs?: { class?: string } })
+							.attribs?.class;
+
+						return (
+							<div className={className}>
+								{domToReact(
+									(domNode as { children?: any[] }).children ?? [],
+									options
+								)}
+							</div>
+						);
+					}
+				}
+				return undefined;
+			},
+		};
+
+		return parse(content, options);
+	};
 
 	// Tạo dữ liệu cho bản đồ
 	const provinces = resistance.address.map((addr) => ({
@@ -81,11 +180,9 @@ export default function ResistanceDetailPage({ params }: PageProps) {
 								{address.lat.toFixed(4)}, {address.lng.toFixed(4)}
 							</span>
 						</div>
-						<div className="max-h-96 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-white/5 hover:scrollbar-thumb-white/30 pr-2">
-							<div className="prose prose-sm prose-invert max-w-none">
-								<p className="leading-relaxed whitespace-pre-line text-gray-200">
-									{address.content}
-								</p>
+						<div className="h-96 max-h-96 overflow-y-scroll scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-white/5 hover:scrollbar-thumb-white/30 pr-2">
+							<div className="prose prose-sm prose-invert max-w-none leading-relaxed text-gray-200 whitespace-pre-line">
+								{renderAddressContent(address.content)}
 							</div>
 						</div>
 					</div>
@@ -116,7 +213,11 @@ export default function ResistanceDetailPage({ params }: PageProps) {
 									{relatedAddress.name}
 								</h4>
 								<p className="text-xs text-gray-300 line-clamp-2">
-									{relatedAddress.content.slice(0, 80)}...
+									{(typeof relatedAddress.content === "string"
+										? relatedAddress.content
+										: ""
+									).slice(0, 80)}
+									...
 								</p>
 							</div>
 						))}
@@ -179,7 +280,8 @@ export default function ResistanceDetailPage({ params }: PageProps) {
 										name: addr.name,
 										lat: addr.lat,
 										lng: addr.lng,
-										content: addr.content,
+										content:
+											typeof addr.content === "string" ? addr.content : "",
 									}))}
 									dots={[]} // Không hiển thị lines
 									lineColor={

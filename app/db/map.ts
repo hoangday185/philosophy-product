@@ -21,7 +21,27 @@ const MAP_DATA: Array<Resistance> = [
 			{
 				id: "sai-gon",
 				name: "Sài Gòn",
-				content: `Nam Bộ kháng chiến (Sài Gòn, 23/9/1945): Rạng sáng 23/9/1945, được quân Anh hậu thuẫn, thực dân Pháp bất ngờ nổ súng chiếm đóng Sài Gòn, mở đầu cuộc chiến tranh xâm lược lần thứ hai. Lực lượng ta tại chỗ (Tự vệ và các đơn vị Nam Bộ) với vũ khí thô sơ đã anh dũng chống trả, tiêu hao một bộ phận sinh lực địch và giam chân chúng trong thành phố suốt nhiều tuần lễ. Tuy địch tái chiếm được Sài Gòn, cuộc kháng chiến Nam Bộ đã hoàn thành nhiệm vụ kìm giữ địch ở đô thị, tạo điều kiện cho cả nước có thêm thời gian chuẩn bị kháng chiến lâu dài. Kết quả: Quân dân Nam Bộ tiêu diệt nhiều địch trong thành phố, buộc Pháp phải dàn quân đối phó trên diện rộng; ta rút về lập chiến khu, mở đầu cuộc kháng chiến trường kỳ. Ý nghĩa: Ngày Nam Bộ kháng chiến đã trở thành mốc son mở đầu cho tinh thần "Thành đồng Tổ quốc" – toàn dân Nam Bộ kiên quyết đứng lên bảo vệ độc lập. Thắng lợi bước đầu này cổ vũ mạnh mẽ quân dân cả nước bước vào Toàn quốc kháng chiến sau đó.`,
+				content: `Nam Bộ kháng chiến (Sài Gòn, 23/9/1945): Rạng sáng 23/9/1945, được quân Anh hậu thuẫn, thực dân Pháp bất ngờ nổ súng chiếm đóng Sài Gòn, mở đầu cuộc chiến tranh xâm lược lần thứ hai. Lực lượng ta tại chỗ (Tự vệ và các đơn vị Nam Bộ) với vũ khí thô sơ đã anh dũng chống trả, tiêu hao một bộ phận sinh lực địch và giam chân chúng trong thành phố suốt nhiều tuần lễ.
+
+<div class="grid grid-cols-2 gap-6 justify-center items-start my-6">
+	<next-image
+		src="/kccm/kccm_1_ben_tre_1.png"
+		width="220"
+		height="160"
+		alt="Lực lượng Nam Bộ kháng chiến"
+		data-tooltip="Nhân dân Hà Nội mít tinh phản đối phái bộ Anh dùng vũ lực chiếm đóng Nam Bộ tại Quảng trường Nhà hát Lớn, ngày 24/9/1945."
+		class="rounded-lg shadow-lg mx-auto"
+	/>
+	<next-image
+		src="/kccm/kccm_1_ben_tre_2.png"
+		width="220"
+		height="160"
+		alt="Khí thế Nam Bộ kháng chiến"
+		class="rounded-lg shadow-lg mx-auto"
+	/>
+</div>
+
+Tuy địch tái chiếm được Sài Gòn, cuộc kháng chiến Nam Bộ đã hoàn thành nhiệm vụ kìm giữ địch ở đô thị, tạo điều kiện cho cả nước có thêm thời gian chuẩn bị kháng chiến lâu dài. Kết quả: Quân dân Nam Bộ tiêu diệt nhiều địch trong thành phố, buộc Pháp phải dàn quân đối phó trên diện rộng; ta rút về lập chiến khu, mở đầu cuộc kháng chiến trường kỳ. Ý nghĩa: Ngày Nam Bộ kháng chiến đã trở thành mốc son mở đầu cho tinh thần "Thành đồng Tổ quốc" – toàn dân Nam Bộ kiên quyết đứng lên bảo vệ độc lập. Thắng lợi bước đầu này cổ vũ mạnh mẽ quân dân cả nước bước vào Toàn quốc kháng chiến sau đó.`,
 				lat: 10.8231,
 				lng: 106.6297, // Trung tâm TP.HCM (chính xác hơn)
 			},
