@@ -68,15 +68,15 @@ export default function ResistanceWarsPage() {
 				{/* Hero Section */}
 				<section className="py-12 bg-muted/30">
 					<div className="container mx-auto px-4">
-						<div className="max-w-3xl">
-							<div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
+						<div className="w-full justify-center mx-auto text-center">
+							<div className="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4 justify-center">
 								Lịch sử kháng chiến
 							</div>
 							<TextAnimate
 								animation="scaleDown"
 								by="character"
 								as="p"
-								className="text-3xl w-[900px] md:text-5xl font-bold mb-4 text-balance"
+								className="text-3xl w-[900px] md:text-5xl font-bold mb-4 text-balance justify-center text-center mx-auto"
 								once
 							>
 								Các cuộc kháng chiến chống ngoại xâm
@@ -113,7 +113,12 @@ export default function ResistanceWarsPage() {
 				</section>
 
 				{/* Content */}
-				<section className="py-16">
+				<section 
+    className={`py-8 bg-cover bg-center`} // Thêm bg-cover/bg-center để kiểm soát ảnh
+    style={{
+        backgroundImage: `url('/vn.jpg')`, // DÙNG INLINE STYLE
+    }}
+>
 					<div className="container mx-auto px-4">
 						<TextAnimate
 							animation="scaleDown"
@@ -125,7 +130,7 @@ export default function ResistanceWarsPage() {
 							Khám phá lịch sử kháng chiến
 						</TextAnimate>
 
-						<div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-4xl mx-auto">
+						<div className="grid md:grid-cols-2 lg:grid-cols-2 gap-6 max-w-3xl mx-auto">
 							{resistanceWars.length > 0 ? (
 								resistanceWars.map((war) => (
 									<ProgramCard

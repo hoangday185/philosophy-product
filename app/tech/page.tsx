@@ -109,7 +109,7 @@ const TechPage = () => {
 							</h1>
 							<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
 								Các công nghệ và công cụ được sử dụng để xây dựng nền tảng
-								e-learning này
+								học tập này
 							</p>
 						</div>
 
@@ -124,11 +124,11 @@ const TechPage = () => {
 									<TypingAnimation> Tài Liệu Dự Án </TypingAnimation>
 								</h2>
 								<p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-									Tài liệu chi tiết về dự án và hướng dẫn sử dụng
+									Tài liệu chi tiết về dự án và các AI sử dụng
 								</p>
 							</div>
 
-							<div className="max-w-5xl mx-auto">
+							<div className="w-full mx-auto">
 								<HoverEffect items={projectItems} />
 							</div>
 						</div>

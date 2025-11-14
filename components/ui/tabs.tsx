@@ -169,7 +169,7 @@ export const Tabs = ({
 			{/* Layout cho 2 phần content */}
 			<div className="flex flex-col lg:flex-row gap-3 sm:gap-4 lg:gap-6 mt-4 sm:mt-6 w-full">
 				{/* Phần 1: FadeInDiv - Content của tabs */}
-				<div className="w-full lg:w-1/2 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
+				<div className="w-full lg:w-4/6 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
 					<FadeInDiv
 						tabs={tabs}
 						active={active}
@@ -187,7 +187,7 @@ export const Tabs = ({
 
 				{/* Phần 2: Secondary Content - Component được truyền vào */}
 				{secondaryContent && (
-					<div className="w-full lg:w-1/2 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
+					<div className="w-full lg:w-2/6 min-h-[400px] sm:min-h-[500px] lg:min-h-[600px]">
 						{typeof secondaryContent === "function"
 							? secondaryContent(active, changeTabByValue)
 							: secondaryContent}

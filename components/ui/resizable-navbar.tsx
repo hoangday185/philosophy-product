@@ -131,7 +131,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
 					<Link
 						onMouseEnter={() => setHovered(idx)}
 						onClick={onItemClick}
-						className="relative px-4 py-2 text-neutral-600  dark:text-neutral-300 "
+						className="relative px-4 py-2 text-neutral-600  dark:text-yellow-500 "
 						key={`link-${idx}`}
 						href={item.link}
 					>
@@ -247,9 +247,9 @@ export const NavbarLogo = () => {
 				href="/"
 				className="flex items-center space-x-2 hover:no-underline  !dark:hover:text-primary !transition-all !duration-300"
 			>
-				<BookOpen className="w-5 h-5 text-primary" />
-				<span className="font-medium text-black dark:text-white">
-					Philosophy-learning
+				<BookOpen className="w-5 h-5 text-primary dark:text-yellow-500" />
+				<span className="font-medium text-black dark:text-yellow-500">
+					VNR202-learning
 				</span>
 			</Link>
 		</Button>

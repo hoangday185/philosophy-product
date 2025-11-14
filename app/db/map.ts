@@ -16,7 +16,7 @@ const MAP_DATA: Array<Resistance> = [
     id: "cuoc-khang-chien-chong-phap",
     name: "Cuộc kháng chiến chống Pháp",
     description:
-      "Cuộc kháng chiến chống Pháp là cuộc kháng chiến của dân tộc Việt Nam chống lại thực dân Pháp trong thời kỳ 1945-1954.",
+      "Cuộc kháng chiến chống Pháp là cuộc kháng chiến hào hùng của dân tộc Việt Nam chống lại sự xâm lược của thực dân Pháp trong thời kỳ 1945-1954.",
     address: [
       {
         id: "sai-gon",
@@ -1470,5 +1470,9 @@ export const DATA_OF_PROJECT = [
   {
     title: "Câu lệnh cho chatgpt",
     link: "https://docs.google.com/document/d/1mtHTAK5QA5ZcCao0CEWGzfdg-LozPcd6Oo1PUjN-FVk/edit?pli=1&tab=t.6akyja73yb04",
+  },
+  {
+    title: "Trắc nghiệm ôn tập",
+    link: "https://docs.google.com/document/d/1mtHTAK5QA5ZcCao0CEWGzfdg-LozPcd6Oo1PUjN-FVk/edit?tab=t.gei7rh503253",
   },
 ];

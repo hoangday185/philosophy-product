@@ -48,23 +48,10 @@ export function useSpeechReader(): UseSpeechReaderReturn {
 			window.speechSynthesis.cancel();
 
 			// Gọi API để xử lý nội dung bằng Gemini
-			const response = await fetch("/api/read-content", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ content }),
-			});
-
-			if (!response.ok) {
-				const errorData = await response.json();
-				throw new Error(errorData.error || "Không thể xử lý nội dung");
-			}
-
-			const { text } = await response.json();
+			const textToRead = content;
 
 			// Tạo utterance mới
-			const newUtterance = new SpeechSynthesisUtterance(text);
+			const newUtterance = new SpeechSynthesisUtterance(textToRead);
 
 			// Cấu hình giọng đọc
 			const voices = window.speechSynthesis.getVoices();

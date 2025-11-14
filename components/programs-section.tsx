@@ -43,7 +43,7 @@ export function ProgramsSection() {
 					Khám phá lịch sử kháng chiến
 				</TextAnimate>
 
-				<div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+				<div className="grid md:grid-cols-2 gap-5 max-w-3xl mx-auto">
 					{programs.map((program, index) => (
 						<ProgramCard
 							key={index}

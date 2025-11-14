@@ -43,16 +43,21 @@ const HeaderV2 = () => {
 			link: "/blogs",
 			icon: Brain,
 		},
+		{
+			name: "Ôn tập",
+			link: "/review",
+			icon: BookMarked,
+		},
 		// {
 		// 	name: "Thư viện",
 		// 	link: "/library",
 		// 	icon: BookMarked,
 		// },
-		{
-			name: "Góp ý",
-			link: "/feedback",
-			icon: MessageSquare,
-		},
+		// {
+		// 	name: "Góp ý",
+		// 	link: "/feedback",
+		// 	icon: MessageSquare,
+		// },
 		{
 			name: "Công nghệ và thành viên",
 			link: "/tech",
@@ -83,7 +88,7 @@ const HeaderV2 = () => {
 								</DropdownMenuContent>
 							</DropdownMenu>
 						</NavbarButton> */}
-						<NavbarButton variant="secondary">
+						<NavbarButton variant="secondary" className="dark:text-yellow-500">
 							<ModeToggle />
 						</NavbarButton>
 					</div>

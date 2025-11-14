@@ -227,7 +227,17 @@ export default function ResistanceDetailPage({ params }: PageProps) {
 	}));
 
 	return (
-		<div className="py-8 md:py-20 dark:bg-black bg-white w-full min-h-screen">
+		//backround id
+		<div
+    className={`py-8 md:py-20 w-full min-h-screen bg-cover bg-center`}
+    style={{
+    backgroundImage: resistance.id === "cuoc-khang-chien-chong-phap"
+        // Gradient Đỏ Cực Tối (Chống Pháp)
+        ? "url('/tre.jpg')" 
+        // Gradient Xanh Dương Cực Tối (Khác, ví dụ Chống Mỹ)
+        : "url('/tre.jpg')" , 
+}}
+>
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				{/* Breadcrumb */}
 
@@ -274,6 +284,7 @@ export default function ResistanceDetailPage({ params }: PageProps) {
 						const currentProvinces = provinces;
 
 						return (
+							//background map
 							<div className="h-full min-h-[400px] sm:min-h-[500px] lg:min-h-[600px] flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-2xl p-3 sm:p-4 md:p-6">
 								<VietnamMap
 									provinces={resistance.address.map((addr) => ({
