@@ -48,6 +48,11 @@ const HeaderV2 = () => {
 			link: "/review",
 			icon: BookMarked,
 		},
+		{
+			name: "Bài học về đảng",
+			link: "/dang",
+			icon: BookMarked,
+		},
 		// {
 		// 	name: "Thư viện",
 		// 	link: "/library",
